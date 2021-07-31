@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 import cloudscraper
 import requests
 
+
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # This program is dedicated to the public domain under the CC0 license.
