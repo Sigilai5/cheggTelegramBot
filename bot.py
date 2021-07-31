@@ -202,8 +202,7 @@ def main():
     # Start the Bot
     updater.start_webhook(listen="0.0.0.0",
                           port=int(PORT),
-                          url_path=TOKEN,
-                          webhook_url ='https://cheggbot254.herokuapp.com/' + TOKEN)
+                          url_path=TOKEN)
     # updater.bot.set_webhook(url=settings.WEBHOOK_URL)
     updater.bot.set_webhook(APP_NAME + TOKEN)
 
