@@ -31,7 +31,7 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 logger = logging.getLogger(__name__)
 
-PORT = int(os.environ.get('PORT', '8443'))
+PORT = int(os.environ.get('PORT', 5000))
 # Define a few command handlers. These usually take the two arguments update and
 # context. Error handlers also receive the raised TelegramError object in error.
 def start(update, context):
@@ -53,9 +53,36 @@ def id(update, context):
 
     update.message.reply_text(get_user_id)
 
+
+def getCode(soup,update):
+    div_question_wrap = soup.find('div', {'class': 'ugc-base question-body-text'})
+    div_answer_wrap = soup.find('div', {'class': 'answer-given-body ugc-base'})
+    generated_file = open("Answer.html", "w")
+    with generated_file as contents:
+        contents.write(
+            str('<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.css" / >'))
+        contents.write(str('<h1>Question</h1>'))
+        contents.write(str('<style>.hidden{display:none;}</style>'))
+        contents.write(str(div_question_wrap))
+        contents.write((str('<div style="background-color: lightyellow;">')))
+        contents.write(str('<h1 style="color:blue">Expert Answer </h1>'))
+        contents.write(str(div_answer_wrap))
+        contents.write((str('</div>')))
+
+    # User object
+    user = update.message.from_user
+
+    get_chat_id = str(update.message.chat_id)  # Alternatively str(user['id'])
+    get_user_firstname = user['first_name']
+
+    files = {'document': open('Answer.html')}
+    resp = requests.post(
+        'https://api.telegram.org/bot1908002304:AAHUiPQIJRurvu4IPogHOI3OkYSwxpovIaU/sendDocument?chat_id=' + get_chat_id + '&caption=Here is your answer, ' + get_user_firstname + '😃',
+        files=files)
+
 def echo(update, context):
     """Echo the user message."""
-    update.message.reply_text('Loading...Please wait⏳')
+    update.message.reply_text('Fetching Answer...Please wait⏳')
 
     scraper = cloudscraper.CloudScraper(interpreter='nodejs')
     # header = {'x-requested-with': 'XMLHttpRequest'}
@@ -132,37 +159,56 @@ def echo(update, context):
 
     soup = BeautifulSoup(s.text, 'html.parser')
     div_answer_wrap = soup.find('div', {'class': 'answer-given-body ugc-base'})
+    values_isnide = div_answer_wrap.find_all('img')
 
+    if values_isnide == []:
+        #Find Question For answer without images
+        getCode(soup,update)
+    else:
+        cloudflare_images_urls= []
+        for src in div_answer_wrap.find_all('img'):
+            if src['src'].startswith('https'):
+                run_once = 0
+                while 1:
+                    if run_once == 0:
+                        getCode(soup,update)
+                        run_once = 1
+            else:
+                cloudflare_images_urls.append('https:' + src['src'])
 
-
-    # #Find Question
     div_question_wrap = soup.find('div', {'class': 'ugc-base question-body-text'})
-    div_answer_wrap = soup.find('div',{'class':'answer-given-body ugc-base'})
-    generated_file = open("Answer2.html", "w")
+    div_answer_wrap = soup.find('div', {'class': 'answer-given-body ugc-base'})
+    answer_feedback = soup.find('div',{'class':'positive-rating rating-block'})
+    generated_file = open("Answer.html", "w")
     with generated_file as contents:
+        contents.write(
+            str('<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.css" / >'))
         contents.write(str('<h1>Question</h1>'))
+        contents.write(str('<style>.hidden{display:none;}</style>'))
         contents.write(str(div_question_wrap))
         contents.write((str('<div style="background-color: lightyellow;">')))
         contents.write(str('<h1 style="color:blue">Expert Answer </h1>'))
-        contents.write(str(div_answer_wrap))
+        for images in cloudflare_images_urls:
+            contents.write(str('<img src="' + images + '">'))
+        contents.write(str(answer_feedback))
         contents.write((str('</div>')))
 
-    #User object
+    # User object
     user = update.message.from_user
 
-    get_chat_id = str(update.message.chat_id) #Alternatively str(user['id'])
-    get_user_firstname= user['first_name']
+    get_chat_id = str(update.message.chat_id)  # Alternatively str(user['id'])
+    get_user_firstname = user['first_name']
 
     files = {'document': open('Answer2.html')}
-    resp = requests.post('https://api.telegram.org/bot1908002304:AAHUiPQIJRurvu4IPogHOI3OkYSwxpovIaU/sendDocument?chat_id='+get_chat_id+'&caption=Here is your answer, ' + get_user_firstname + '😃',files=files)
-    for src in div_answer_wrap.find_all('img'):
-        update.message.reply_text('Here is an image related to answer that might have failed to load 👇')
-        update.message.reply_text(src['src'])
+    resp = requests.post(
+        'https://api.telegram.org/bot1908002304:AAHUiPQIJRurvu4IPogHOI3OkYSwxpovIaU/sendDocument?chat_id=' + get_chat_id + '&caption=Here is your answer, ' + get_user_firstname + '😃',
+        files=files)
 
 
-    # print(resp.status_code)
-    #
-    # update.message.reply_text(update.message.chat_id)
+
+
+
+
 
 
 
@@ -178,7 +224,7 @@ def main():
     """Start the bot."""
 
     TOKEN = "1908002304:AAHUiPQIJRurvu4IPogHOI3OkYSwxpovIaU"
-    APP_NAME = "cheggbot254"
+
 
     # Create the Updater and pass it your bot's token.
     # Make sure to set use_context=True to use the new context based callbacks
@@ -200,11 +246,7 @@ def main():
     dp.add_error_handler(error)
 
     # Start the Bot
-    updater.start_webhook(listen="0.0.0.0",
-                          port=int(PORT),
-                          url_path=TOKEN)
-    # updater.bot.set_webhook(url=settings.WEBHOOK_URL)
-    updater.bot.set_webhook(APP_NAME + TOKEN)
+    updater.start_polling()
 
     # Run the bot until you press Ctrl-C or the process receives SIGINT,
     # SIGTERM or SIGABRT. This should be used most of the time, since
