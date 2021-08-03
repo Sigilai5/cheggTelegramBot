@@ -59,7 +59,7 @@ def account(update, context):
     """Send user id when the command /id is issued."""
     get_user_id = str(update.message.chat_id)
 
-    update.message.reply_text("Your account number is " + get_user_id)
+    update.message.reply_text("Your account number is: " + get_user_id)
 
 
 def echo(update, context):
@@ -146,7 +146,7 @@ def echo(update, context):
     # not_answered_yet = soup.find('div', {'class': 'hangTight'}).text
     # upvotes = soup.find('div',{'class':'feedback-rating content-feedback'})
     # downvotes = soup.find('div',{'class':'negative-rating rating-block'})
-    generated_file = open("Answer.html", "w")
+    generated_file = open("dynamic_files/"+str(update.message.chat_id)+".html", "w")
     with generated_file as contents:
         contents.write(
             str('<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.css" / >'))
@@ -168,7 +168,7 @@ def echo(update, context):
     get_chat_id = str(update.message.chat_id)  # Alternatively str(user['id'])
     get_user_firstname = user['first_name']
 
-    files = {'document': open('Answer.html')}
+    files = {'document': open("dynamic_files/"+str(update.message.chat_id)+".html")}
     resp = requests.post(
         'https://api.telegram.org/bot1908002304:AAHUiPQIJRurvu4IPogHOI3OkYSwxpovIaU/sendDocument?chat_id=' + get_chat_id + '&caption=Here is your answer, ' + get_user_firstname + '😃',
         files=files)
