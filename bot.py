@@ -55,7 +55,11 @@ def id(update, context):
     update.message.reply_text(get_user_id)
 
 
+def account(update, context):
+    """Send user id when the command /id is issued."""
+    get_user_id = str(update.message.chat_id)
 
+    update.message.reply_text("Your account number is " + get_user_id)
 
 
 def echo(update, context):
@@ -197,6 +201,7 @@ def main():
     dp.add_handler(CommandHandler("start", start))
     dp.add_handler(CommandHandler("help", help))
     dp.add_handler(CommandHandler("id", id))
+    dp.add_handler(CommandHandler("account", account))
 
     # on noncommand i.e message - echo the message on Telegram
     dp.add_handler(MessageHandler(Filters.text, echo))
