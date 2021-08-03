@@ -3,6 +3,7 @@ import cloudscraper
 import requests
 
 
+
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # This program is dedicated to the public domain under the CC0 license.
@@ -54,35 +55,12 @@ def id(update, context):
     update.message.reply_text(get_user_id)
 
 
-def getCode(soup,update):
-    div_question_wrap = soup.find('div', {'class': 'ugc-base question-body-text'})
-    div_answer_wrap = soup.find('div', {'class': 'answer-given-body ugc-base'})
-    generated_file = open("Answer.html", "w")
-    with generated_file as contents:
-        contents.write(
-            str('<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.css" / >'))
-        contents.write(str('<h1>Question</h1>'))
-        contents.write(str('<style>.hidden{display:none;}</style>'))
-        contents.write(str(div_question_wrap))
-        contents.write((str('<div style="background-color: lightyellow;">')))
-        contents.write(str('<h1 style="color:blue">Expert Answer </h1>'))
-        contents.write(str(div_answer_wrap))
-        contents.write((str('</div>')))
 
-    # User object
-    user = update.message.from_user
 
-    get_chat_id = str(update.message.chat_id)  # Alternatively str(user['id'])
-    get_user_firstname = user['first_name']
-
-    files = {'document': open('Answer.html')}
-    resp = requests.post(
-        'https://api.telegram.org/bot1908002304:AAHUiPQIJRurvu4IPogHOI3OkYSwxpovIaU/sendDocument?chat_id=' + get_chat_id + '&caption=Here is your answer, ' + get_user_firstname + '😃',
-        files=files)
 
 def echo(update, context):
     """Echo the user message."""
-    update.message.reply_text('Fetching Answer...Please wait⏳')
+    update.message.reply_text('Fetching answer...please wait⏳')
 
     scraper = cloudscraper.CloudScraper(interpreter='nodejs')
     # header = {'x-requested-with': 'XMLHttpRequest'}
@@ -158,39 +136,26 @@ def echo(update, context):
     s = scraper.get(url, cookies=cookies)
 
     soup = BeautifulSoup(s.text, 'html.parser')
-    div_answer_wrap = soup.find('div', {'class': 'answer-given-body ugc-base'})
-    values_isnide = div_answer_wrap.find_all('img')
-
-    if values_isnide == []:
-        #Find Question For answer without images
-        getCode(soup,update)
-    else:
-        cloudflare_images_urls= []
-        for src in div_answer_wrap.find_all('img'):
-            if src['src'].startswith('https'):
-                run_once = 0
-                while 1:
-                    if run_once == 0:
-                        getCode(soup,update)
-                        run_once = 1
-            else:
-                cloudflare_images_urls.append('https:' + src['src'])
 
     div_question_wrap = soup.find('div', {'class': 'ugc-base question-body-text'})
     div_answer_wrap = soup.find('div', {'class': 'answer-given-body ugc-base'})
-    answer_feedback = soup.find('div',{'class':'positive-rating rating-block'})
+    # not_answered_yet = soup.find('div', {'class': 'hangTight'}).text
+    # upvotes = soup.find('div',{'class':'feedback-rating content-feedback'})
+    # downvotes = soup.find('div',{'class':'negative-rating rating-block'})
     generated_file = open("Answer.html", "w")
     with generated_file as contents:
         contents.write(
             str('<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.css" / >'))
+        contents.write(
+            str('<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>'))
+        contents.write(
+            str("<script>(function ($) { $(document).ready(function () { $('img').each(function () { var $el = $(this), s = $el.attr('src'), sRx = /^[\/data\/]+/igm; if (sRx.test(s)) { s = 'http:' + s; $el.attr('src',s); }  }); }); })(jQuery); </script>"))
         contents.write(str('<h1>Question</h1>'))
         contents.write(str('<style>.hidden{display:none;}</style>'))
         contents.write(str(div_question_wrap))
         contents.write((str('<div style="background-color: lightyellow;">')))
         contents.write(str('<h1 style="color:blue">Expert Answer </h1>'))
-        for images in cloudflare_images_urls:
-            contents.write(str('<img src="' + images + '">'))
-        contents.write(str(answer_feedback))
+        contents.write(str(div_answer_wrap))
         contents.write((str('</div>')))
 
     # User object
@@ -199,16 +164,10 @@ def echo(update, context):
     get_chat_id = str(update.message.chat_id)  # Alternatively str(user['id'])
     get_user_firstname = user['first_name']
 
-    files = {'document': open('Answer2.html')}
+    files = {'document': open('Answer.html')}
     resp = requests.post(
         'https://api.telegram.org/bot1908002304:AAHUiPQIJRurvu4IPogHOI3OkYSwxpovIaU/sendDocument?chat_id=' + get_chat_id + '&caption=Here is your answer, ' + get_user_firstname + '😃',
         files=files)
-
-
-
-
-
-
 
 
 
