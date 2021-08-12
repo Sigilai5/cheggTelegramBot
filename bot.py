@@ -10,11 +10,9 @@ import requests
 
 """
 Simple Bot to reply to Telegram messages.
-
 First, a few handler functions are defined. Then, those functions are passed to
 the Dispatcher and registered at their respective places.
 Then, the bot is started and runs until we press Ctrl-C on the command line.
-
 Usage:
 Basic Echobot example, repeats messages.
 Press Ctrl-C on the command line or send a signal to the process to stop the
@@ -158,7 +156,7 @@ def echo(update, context):
         contents.write(str('<style>.hidden{display:none;}</style>'))
         contents.write(str(div_question_wrap))
         contents.write((str('<div style="background-color: lightyellow;">')))
-        contents.write(str('<h1 style="color:blue">Expert Answer </h1>'))
+        contents.write(str('<h1 style="color:red">Expert Answer </h1>'))
         contents.write(str(div_answer_wrap))
         contents.write((str('</div>')))
 
