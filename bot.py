@@ -151,12 +151,12 @@ def echo(update, context):
         contents.write(
             str('<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>'))
         contents.write(
-            str("<script>(function ($) { $(document).ready(function () { $('img').each(function () { var $el = $(this), s = $el.attr('src'), sRx = /^[\/data\/]+/igm; if (sRx.test(s)) { s = 'http:' + s; $el.attr('src',s); }  }); }); })(jQuery); </script>"))
+            str("<script>(function($) { $(document).ready(function() { $('img').each(function() {   var $el = $(this), s = $el.attr('src'), sRx = /^[\/data\/]+/igm; if (s.startsWith('data:image/')) {$el.attr('src', s);} else {if (sRx.test(s)) {s = 'http:' + s;$el.attr('src', s);}}});});})(jQuery);</script>"))
         contents.write(str('<h1>Question</h1>'))
         contents.write(str('<style>.hidden{display:none;}</style>'))
         contents.write(str(div_question_wrap))
         contents.write((str('<div style="background-color: lightyellow;">')))
-        contents.write(str('<h1 style="color:red">Expert Answer </h1>'))
+        contents.write(str('<h1 style="color:green">Expert Answer </h1>'))
         contents.write(str(div_answer_wrap))
         contents.write((str('</div>')))
 
