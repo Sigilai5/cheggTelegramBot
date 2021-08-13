@@ -156,7 +156,7 @@ def echo(update, context):
         contents.write(str('<style>.hidden{display:none;}</style>'))
         contents.write(str(div_question_wrap))
         contents.write((str('<div style="background-color: lightyellow;">')))
-        contents.write(str('<h1 style="color:green">Expert Answer </h1>'))
+        contents.write(str('<h1 style="color:orange">Expert Answer </h1>'))
         contents.write(str(div_answer_wrap))
         contents.write((str('</div>')))
 
