@@ -152,6 +152,9 @@ def echo(update, context):
             str('<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>'))
         contents.write(
             str("<script>(function($) { $(document).ready(function() { $('img').each(function() {   var $el = $(this), s = $el.attr('src'), sRx = /^[\/data\/]+/igm; if (s.startsWith('data:image/')) {$el.attr('src', s);} else {if (sRx.test(s)) {s = 'http:' + s;$el.attr('src', s);}}});});})(jQuery);</script>"))
+        contents.write(
+            '<center><img src="https://prnewswire2-a.akamaihd.net/p/1893751/sp/189375100/thumbnail/entry_id/0_tywxthw7/def_height/2700/def_width/2700/version/100012/type/1" width="600px" height="200px"></center>'
+        )
         contents.write(str('<h1>Question</h1>'))
         contents.write(str('<style>.hidden{display:none;}</style>'))
         contents.write(str(div_question_wrap))
