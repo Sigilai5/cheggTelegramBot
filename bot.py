@@ -64,7 +64,7 @@ def echo(update, context):
     """Echo the user message."""
 
     # "Sigilai Brian": 63710714,
-    paid_users = { "Sigi Brian": 1672275813}
+    paid_users = { "Sigi Brian": 1672275813,"Japhet Moturi": 1788310499,"Sigilai Brian": 63710714}
 
     paid_users_chat_id = paid_users.values()
 
@@ -236,3 +236,7 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+
+    #Github password
+    #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
