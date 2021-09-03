@@ -7,7 +7,7 @@ import os
 def print_hi(name):
     # Use a breakpoint in the code line below to debug your script.
     print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-    b = os.path.getsize("dynamic_files/1672275813.html")
+    b = os.path.getsize("dynamic_files/test.html")
     print(str(b))
 
 

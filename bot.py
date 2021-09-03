@@ -67,7 +67,7 @@ def echo(update, context):
     paid_users = {
         "Sigi Brian": 1672275813,
         "Japhet Moturi": 1788310499,
-       # "Sigilai Brian": 63710714
+       "Sigilai Brian": 63710714
     }
 
     paid_users_chat_id = paid_users.values()
@@ -184,9 +184,14 @@ def echo(update, context):
         get_user_firstname = user['first_name']
 
         files = {'document': open("dynamic_files/"+str(update.message.chat_id)+".html")}
-        resp = requests.post(
-            'https://api.telegram.org/bot1908002304:AAHUiPQIJRurvu4IPogHOI3OkYSwxpovIaU/sendDocument?chat_id=' + get_chat_id + '&caption=Here is your answer, ' + get_user_firstname + '😃',
-            files=files)
+
+        if  os.path.getsize("dynamic_files/test.html") == '846':
+            resp = requests.post(
+                'https://api.telegram.org/bot1908002304:AAHUiPQIJRurvu4IPogHOI3OkYSwxpovIaU/sendDocument?chat_id=' + '1672275813' + '&caption=Chegg Alert!!!')
+        else:
+            resp = requests.post(
+                'https://api.telegram.org/bot1908002304:AAHUiPQIJRurvu4IPogHOI3OkYSwxpovIaU/sendDocument?chat_id=' + get_chat_id + '&caption=Here is your answer, ' + get_user_firstname + '😃',
+                files=files)
 
     else:
         # User object
