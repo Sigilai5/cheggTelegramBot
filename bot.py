@@ -67,7 +67,8 @@ def echo(update, context):
     paid_users = {
         "Sigi Brian": 1672275813,
         "Japhet Moturi": 1788310499,
-        "Sigilai Brian": 63710714
+        # "Sigilai Brian": 63710714
+        "Elkana Chegg": 761114919
     }
 
     paid_users_chat_id = paid_users.values()
