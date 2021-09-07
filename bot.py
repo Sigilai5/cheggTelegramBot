@@ -255,7 +255,7 @@ def echo(update, context):
         user = update.message.chat.username
         get_username = str(user)
 
-        update.message.reply_text('Please contact 0719119758/0792071275 to pay for unlocks.')
+        update.message.reply_text('Please contact 0792071275 to pay for unlocks.')
 
 
 
