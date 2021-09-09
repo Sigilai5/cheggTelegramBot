@@ -223,6 +223,8 @@ def echo(update, context):
         generated_file = open("dynamic_files/"+str(update.message.chat_id)+".html", "w")
         with generated_file as contents:
             contents.write(
+                str('<meta charset="UTF-8">'))
+            contents.write(
                 str('<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.css" / >'))
             contents.write(
                 str('<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>'))
