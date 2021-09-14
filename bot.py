@@ -68,7 +68,8 @@ def echo(update, context):
         "Sigi Brian": 1672275813,
         "Japhet Moturi": 1788310499,
         # "Sigilai Brian": 63710714
-        "Elkana Chegg": 761114919
+        "Elkana Chegg": 761114919,
+        "Tomno Kipsortich": 483654132
     }
 
     paid_users_chat_id = paid_users.values()
@@ -270,7 +271,7 @@ def error(update, context):
 def main():
     """Start the bot."""
 
-    TOKEN = "1948227637:AAEUS_i_uzbRMfGAPe2U7Jt559wVbiI46d0"
+    TOKEN = "1993450316:AAF8tpKVI_UUxKipyOPZrJNEEcuDTAq5txk"
 
     #Chegg Kenya
     #1948227637:AAEUS_i_uzbRMfGAPe2U7Jt559wVbiI46d0
