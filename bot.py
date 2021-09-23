@@ -69,7 +69,8 @@ def echo(update, context):
         "Japhet Moturi": 1788310499,
         "Sigilai Brian": 63710714,
         "Elkana Chegg": 761114919,
-        "Tomno Kipsortich": 483654132
+        "Tomno Kipsortich": 483654132,
+         "Pete Gichana": 1022164467
     }
 
     paid_users_chat_id = paid_users.values()
