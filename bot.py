@@ -250,7 +250,7 @@ def echo(update, context):
 
         files = {'document': open("dynamic_files/" + str(update.message.chat_id) + ".html")}
         resp = requests.post(
-            'https://api.telegram.org/bot1948227637:AAEUS_i_uzbRMfGAPe2U7Jt559wVbiI46d0/sendDocument?chat_id=' + get_chat_id + '&caption=Here is your answer, ' + get_user_firstname + '😃',
+            'https://api.telegram.org//sendDocument?chat_id=' + get_chat_id + '&caption=Here is your answer, ' + get_user_firstname + '😃',
             files=files)
 
     else:
@@ -258,7 +258,7 @@ def echo(update, context):
         user = update.message.chat.username
         get_username = str(user)
 
-        update.message.reply_text('Please contact 0792071275 on Whatsapp to pay for unlocks.')
+        update.message.reply_text('Please contact 0792071275 on Whatsapp  for unlocks.')
 
 
 
@@ -271,10 +271,9 @@ def error(update, context):
 def main():
     """Start the bot."""
 
-    TOKEN = "1948227637:AAEUS_i_uzbRMfGAPe2U7Jt559wVbiI46d0"
+    TOKEN = ""
 
-    #Chegg Kenya
-    #1948227637:AAEUS_i_uzbRMfGAPe2U7Jt559wVbiI46d0
+
 
     # Create the Updater and pass it your bot's token.
     # Make sure to set use_context=True to use the new context based callbacks
