@@ -1,6 +1,6 @@
 # cheggTelegramBot
 
-#A Telegram Bot that gets chegg answers by giving it a chegg question link.Click the box below to a screenshot.
+#A Telegram Bot that gets chegg answers by giving it a chegg question link.Click the box below to view a screenshot of an example.
 
 
 <img src="https://github.com/Sigilai5/cheggTelegramBot/blob/master/screenshots/demo.jpeg" width="320"/>  
