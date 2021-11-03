@@ -22,7 +22,6 @@ bot.
 import logging
 import os
 
-
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
 # Enable logging
@@ -70,8 +69,7 @@ def echo(update, context):
         "Japhet Moturi": 1788310499,
         "Sigilai Brian": 63710714,
         "Elkana Chegg": 761114919,
-        "Tomno Kipsortich": 483654132,
-         "Pete Gichana": 1022164467
+        "Tomno Kipsortich": 483654132
     }
 
     paid_users_chat_id = paid_users.values()
@@ -203,7 +201,7 @@ def echo(update, context):
 
         files = {'document': open("dynamic_files/" + str(update.message.chat_id) + ".html")}
         resp = requests.post(
-            'https://api.telegram.org/bot2064320160:AAH00PsltMPt30gXdxl3dUjLtjpbCiLI6kk/sendDocument?chat_id=' + get_chat_id + '&caption=Here is the answer, ' + get_user_firstname + '😃',
+            'https://api.telegram.org/bot2064320160:AAH00PsltMPt30gXdxl3dUjLtjpbCiLI6kk/sendDocument?chat_id=' + get_chat_id + '&caption=Here is your answer, ' + get_user_firstname + '😃',
             files=files)
 
     else:
@@ -211,7 +209,7 @@ def echo(update, context):
         user = update.message.chat.username
         get_username = str(user)
 
-        update.message.reply_text('Please contact 0792071275 on Whatsapp  for unlocks.')
+        update.message.reply_text('Please contact 0792071275 on Whatsapp to pay for unlocks.')
 
 
 
@@ -226,7 +224,8 @@ def main():
 
     TOKEN = "2064320160:AAH00PsltMPt30gXdxl3dUjLtjpbCiLI6kk"
 
-#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
+    #Chegg Kenya
+    #1948227637:AAEUS_i_uzbRMfGAPe2U7Jt559wVbiI46d0
 
     # Create the Updater and pass it your bot's token.
     # Make sure to set use_context=True to use the new context based callbacks
@@ -261,4 +260,5 @@ if __name__ == '__main__':
     main()
 
 
-
+    #Github password
+    #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
